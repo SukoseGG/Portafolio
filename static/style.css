@@ -173,3 +173,21 @@ body::after {
   .marquesina span { animation: none; padding-left: 0; }
   .lista-redes a { animation: none; }
     }
+/* ===== Portada ===== */
+.portada { max-width: 42rem; margin: 0 auto; padding: 2.5rem 1rem 0; }
+.portada h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 18vw, 7rem);
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--menta);
+  text-shadow: 3px 0 var(--acento), -3px 0 var(--lima), 0 0 28px rgba(57, 255, 20, .55);
+  animation: glitch 4s steps(1) infinite;
+}
+.portada p { margin: .75rem 0 0; color: var(--acento); text-shadow: 0 0 6px rgba(57, 255, 20, .7); }
+@keyframes glitch {
+  0%, 92%, 100% { transform: none; }
+  94% { transform: translateX(-4px) skewX(-6deg); }
+  96% { transform: translateX(5px); }
+}
+@media (prefers-reduced-motion: reduce) { .portada h1 { animation: none; } }

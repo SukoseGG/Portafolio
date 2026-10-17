@@ -2,8 +2,10 @@
 
 /* ===== Datos: edita solo esta sección ===== */
 const PERFIL = {
-  email: "dmcsukha@gmail.com",   // ej: "tucorreo@gmail.com"
-  github: "github.com/SukoseGG"   // ej: "https://github.com/tu-usuario"
+  email: "dmcsukha@gmail.com",
+  github: "https://github.com/SukoseGG",
+  instagram: "",   // ej: "https://instagram.com/tu-usuario"
+  twitter: ""      // ej: "https://x.com/tu-usuario"
 };
 
 const HABILIDADES = [
@@ -12,6 +14,20 @@ const HABILIDADES = [
 ];
 
 // Un texto puede ser un string (igual en ambos idiomas) o { es, en }
+const SERVICIOS = [
+  { es: "scripts de automatización a tu medida", en: "custom automation scripts" },
+  { es: "web scraping con BeautifulSoup y Selenium", en: "web scraping with BeautifulSoup and Selenium" },
+  { es: "microservicios y apps web con Flask", en: "microservices and web apps with Flask" },
+  { es: "páginas y portafolios en HTML, CSS y JS puros", en: "landing pages and portfolios in plain HTML, CSS and JS" },
+  { es: "mantenimiento de PC e instalación de sistemas operativos", en: "PC maintenance and operating system installs" }
+];
+
+const AHORA = [
+  { es: "aprendiendo por mi cuenta, con la meta de estudiar ingeniería de sistemas", en: "learning on my own, aiming to study systems engineering" },
+  { es: "construyendo herramientas de automatización y microservicios web", en: "building automation tools and web microservices" },
+  { es: "buscando proyectos freelance con clientes de todo el mundo", en: "looking for freelance projects with clients worldwide" }
+];
+
 const PROYECTOS = [
   {
     titulo: "System Resource Monitor",
@@ -39,39 +55,47 @@ const IDIOMAS = ["en", "es"];
 
 const TEXTOS = {
   en: {
-    titulo: "Fabián | Portfolio",
-    h1: "Fabián's portfolio",
+    titulo: "Sukose | Portfolio",
+    lema: "automation, microservices and web tools",
     marquesina: `welcome to my page :3${SEP}scripts, microservices and web tools${SEP}thanks for visiting`,
     vHola: "hello.txt",
+    vServicios: "services.exe",
     vHabilidades: "skills.txt",
     vProyectos: "projects",
+    vAhora: "now.txt",
     vRedes: "my-links.org",
-    p1: "welcome to my page!! my name is Fabián.",
+    p1: "welcome to my page!! i'm Sukose.",
     p2: "i build automation scripts, microservices and web tools with python and flask. i'm self-taught, and i also do hardware maintenance and operating system installs.",
-    p3: "my projects and how to reach me are below.",
+    p3: "what i offer, my projects and how to reach me are below.",
     verProyecto: "view project",
     correo: ">>click here to email me!!",
     github: ">>click here to see my github!!",
-    sinDatos: "add your email and github in PERFIL (main.js)",
+    instagram: ">>follow me on instagram!!",
+    twitter: ">>follow me on twitter!!",
+    sinDatos: "add your links in PERFIL (main.js)",
     botonIdioma: "ES",
     cambiarIdioma: "Switch to Spanish",
     navegacion: "Windows"
   },
   es: {
-    titulo: "Fabián | Portafolio",
-    h1: "Portafolio de Fabián",
+    titulo: "Sukose | Portafolio",
+    lema: "automatización, microservicios y herramientas web",
     marquesina: `bienvenido a mi página :3${SEP}scripts, microservicios y herramientas web${SEP}gracias por visitar`,
     vHola: "hola.txt",
+    vServicios: "servicios.exe",
     vHabilidades: "habilidades.txt",
     vProyectos: "proyectos",
+    vAhora: "ahora.txt",
     vRedes: "mis-redes.org",
-    p1: "bienvenido a mi página!! me llamo Fabián.",
+    p1: "bienvenido a mi página!! soy Sukose.",
     p2: "hago scripts de automatización, microservicios y herramientas web con python y flask. aprendo por mi cuenta y también hago mantenimiento de hardware e instalación de sistemas operativos.",
-    p3: "más abajo están mis proyectos y cómo contactarme.",
+    p3: "más abajo están lo que ofrezco, mis proyectos y cómo contactarme.",
     verProyecto: "ver proyecto",
     correo: ">>haz clic para escribirme!!",
     github: ">>haz clic para ver mi github!!",
-    sinDatos: "agrega tu correo y tu github en PERFIL (main.js)",
+    instagram: ">>sígueme en instagram!!",
+    twitter: ">>sígueme en twitter!!",
+    sinDatos: "agrega tus enlaces en PERFIL (main.js)",
     botonIdioma: "EN",
     cambiarIdioma: "Cambiar a inglés",
     navegacion: "Ventanas"
@@ -124,6 +148,10 @@ function renderFichas(contenedor, items) {
   contenedor.replaceChildren(...items.map(item => crear("li", { texto: item })));
 }
 
+function renderTextos(id, items) {
+  renderFichas(document.getElementById(id), items.map(loc));
+}
+
 function renderProyectos() {
   const contenedor = document.getElementById("proyectos-lista");
   contenedor.replaceChildren(...PROYECTOS.map(proyecto => {
@@ -147,21 +175,24 @@ function renderProyectos() {
   }));
 }
 
-function renderContacto() {
-  const lista = document.getElementById("contacto-lista");
-  const filas = [];
-
+function enlacesContacto() {
+  const enlaces = [];
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(PERFIL.email)) {
-    filas.push(crear("li", {}, [crear("a", { texto: t("correo"), atributos: { href: `mailto:${PERFIL.email}` } })]));
+    enlaces.push({ texto: t("correo"), atributos: { href: `mailto:${PERFIL.email}` } });
   }
-  const github = urlSegura(PERFIL.github);
-  if (github) {
-    filas.push(crear("li", {}, [crear("a", { texto: t("github"), atributos: { href: github, target: "_blank", rel: "noopener noreferrer" } })]));
+  for (const clave of ["github", "instagram", "twitter"]) {
+    const url = urlSegura(PERFIL[clave]);
+    if (url) {
+      enlaces.push({ texto: t(clave), atributos: { href: url, target: "_blank", rel: "noopener noreferrer" } });
+    }
   }
-  if (filas.length === 0) {
-    filas.push(crear("li", { texto: t("sinDatos") }));
-  }
-  lista.replaceChildren(...filas);
+  return enlaces;
+}
+
+function renderContacto() {
+  const filas = enlacesContacto().map(enlace => crear("li", {}, [crear("a", enlace)]));
+  if (filas.length === 0) filas.push(crear("li", { texto: t("sinDatos") }));
+  document.getElementById("contacto-lista").replaceChildren(...filas);
 }
 
 /* Aplica el idioma actual a todo: textos fijos, listas y botón */
@@ -171,6 +202,8 @@ function aplicarIdioma() {
   document.querySelectorAll("[data-i18n]").forEach(nodo => {
     nodo.textContent = t(nodo.dataset.i18n);
   });
+  renderTextos("servicios-lista", SERVICIOS);
+  renderTextos("ahora-lista", AHORA);
   renderProyectos();
   renderContacto();
 

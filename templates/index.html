@@ -3,33 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fabián | Portfolio</title>
-<meta name="description" content="Portfolio of a Python, Flask and web developer.">
+<title>Sukose | Portfolio</title>
+<meta name="description" content="Portfolio of Sukose, Python, Flask and web developer.">
 <link rel="stylesheet" href="{{ estatico('style.css') }}">
 <script src="{{ estatico('main.js') }}" defer></script>
 </head>
 <body>
-<h1 class="oculto" data-i18n="h1">Fabián's portfolio</h1>
-
 <div class="marquesina" aria-hidden="true">
-  <span data-i18n="marquesina">welcome to my page :3 &nbsp;&nbsp;&nbsp; scripts, microservices and web tools &nbsp;&nbsp;&nbsp; thanks for visiting</span>
+  <span data-i18n="marquesina">welcome to my page :3</span>
 </div>
+
+<header class="portada">
+  <h1>Sukose</h1>
+  <p data-i18n="lema">automation, microservices and web tools</p>
+</header>
 
 <main class="escritorio">
   <section class="ventana" data-titulo="vHola">
     <div class="contenido">
-      <p data-i18n="p1">welcome to my page!! my name is Fabián.</p>
-      <p data-i18n="p2">i build automation scripts, microservices and web tools with python and flask. i'm self-taught, and i also do hardware maintenance and operating system installs.</p>
-      <p data-i18n="p3">my projects and how to reach me are below.</p>
+      <p data-i18n="p1"></p>
+      <p data-i18n="p2"></p>
+      <p data-i18n="p3"></p>
     </div>
   </section>
 
+  <section class="ventana" data-titulo="vServicios">
+    <div class="contenido"><ul id="servicios-lista" class="lista"></ul></div>
+  </section>
+
   <section class="ventana" data-titulo="vHabilidades">
-    <div class="contenido"><ul id="habilidades" class="lista"></ul></div>
+    <div class="contenido"><ul id="habilidades" class="fichas"></ul></div>
   </section>
 
   <section class="ventana" data-titulo="vProyectos">
     <div class="contenido" id="proyectos-lista"></div>
+  </section>
+
+  <section class="ventana" data-titulo="vAhora">
+    <div class="contenido"><ul id="ahora-lista" class="lista"></ul></div>
   </section>
 
   <section class="ventana acento" data-titulo="vRedes">
@@ -43,4 +54,4 @@
   <span id="reloj"></span>
 </nav>
 </body>
-  </html>
+</html>
