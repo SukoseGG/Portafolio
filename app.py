@@ -1,8 +1,16 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600  # caché de estáticos: 1 hora
+
+
+@app.context_processor
+def ayudantes_plantilla():
+    def estatico(archivo):
+        ruta = os.path.join(app.static_folder, archivo)
+        return url_for("static", filename=archivo, v=int(os.path.getmtime(ruta)))
+    return {"estatico": estatico}
 
 
 @app.after_request
