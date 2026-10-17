@@ -1,0 +1,109 @@
+/* ===== Tokens ===== */
+:root {
+  --carbon: #1b1d21;
+  --panel: #24272c;
+  --borde: #3a3f47;
+  --cian: #9eeaff;
+  --texto: #e8eff3;
+  --apagado: #8b98a3;
+  --cromo: linear-gradient(180deg, #e9f1f5 0%, #9aa8b1 100%);
+  color-scheme: dark;
+}
+
+/* ===== Base ===== */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Verdana, Tahoma, "DejaVu Sans", sans-serif;
+  line-height: 1.65;
+  color: var(--texto);
+  background-color: var(--carbon);
+  background-image:
+    linear-gradient(rgba(158, 234, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(158, 234, 255, .05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+a { color: var(--cian); }
+:focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; }
+main, .barra nav, footer { width: min(100% - 2rem, 52rem); margin-inline: auto; }
+
+.saltar { position: absolute; left: -999px; }
+.saltar:focus { left: 1rem; top: 1rem; background: var(--carbon); padding: .5rem; z-index: 10; }
+
+/* ===== Barra superior ===== */
+.barra nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1.5rem; padding: 1rem 0; }
+.marca { font-weight: 700; color: var(--texto); text-decoration: none; }
+.barra ul { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.barra ul a { color: var(--apagado); text-decoration: none; font-size: .9rem; }
+.barra ul a:hover { color: var(--cian); }
+
+/* ===== Hero ===== */
+.hero { padding: clamp(3rem, 12vw, 7rem) 0 clamp(2.5rem, 8vw, 4.5rem); }
+.hero h1 {
+  margin: 0;
+  font-size: clamp(3rem, 15vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -.03em;
+  background: linear-gradient(180deg, #fff 0%, #c4d3da 45%, #6f7d87 55%, #d6e4ea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(158, 234, 255, .35));
+  animation: escanear .9s steps(12) both;
+}
+.lema { max-width: 34rem; margin: 1.25rem 0 1.75rem; color: var(--apagado); animation: escanear .9s .5s steps(12) both; }
+.acciones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.boton {
+  padding: .65rem 1.25rem;
+  border: 1px solid var(--cian);
+  color: var(--cian);
+  text-decoration: none;
+  font-weight: 700;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.boton:hover { background: rgba(158, 234, 255, .12); }
+.boton.primario { background: var(--cian); color: var(--carbon); }
+.boton.primario:hover { background: #c4f2ff; }
+@keyframes escanear { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* ===== Ventanas (cada sección) ===== */
+.ventana {
+  margin-bottom: 1.75rem;
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  scroll-margin-top: 1rem;
+}
+.ventana > h2 {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0; padding: .45rem .9rem;
+  font-size: .9rem; color: var(--carbon); background: var(--cromo);
+}
+.ventana > h2::after {
+  content: ""; width: 9px; height: 9px; margin-right: 34px;
+  background: var(--carbon);
+  box-shadow: 15px 0 var(--carbon), 30px 0 var(--carbon);
+}
+.cuerpo { padding: 1.25rem 1rem 1.5rem; }
+.cuerpo > p { max-width: 60ch; margin: 0; }
+
+/* ===== Fichas (habilidades y tags) ===== */
+.fichas { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.fichas li { padding: .25rem .7rem; font-size: .85rem; background: var(--carbon); border: 1px solid var(--borde); }
+
+/* ===== Proyectos ===== */
+.proyecto { padding: 1.25rem 0 1.25rem 1rem; border-left: 3px solid var(--cian); margin-bottom: 1rem; }
+.proyecto:last-child { margin-bottom: 0; }
+.proyecto h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
+.proyecto p { max-width: 60ch; margin: 0 0 .85rem; color: var(--apagado); }
+.proyecto .enlace { display: inline-block; margin-top: .85rem; }
+
+/* ===== Contacto y pie ===== */
+#contacto-lista { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+footer { padding: 1.5rem 0 3rem; color: var(--apagado); font-size: .85rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero h1, .lema { animation: none; }
+}
