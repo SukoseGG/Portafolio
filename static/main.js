@@ -11,20 +11,94 @@ const HABILIDADES = [
   "HTML5", "CSS3", "JavaScript", "Git", "Render"
 ];
 
+// Un texto puede ser un string (igual en ambos idiomas) o { es, en }
 const PROYECTOS = [
   {
     titulo: "System Resource Monitor",
-    descripcion: "Panel que muestra el uso de recursos del sistema en tiempo real.",
+    descripcion: {
+      es: "Panel que muestra el uso de recursos del sistema en tiempo real.",
+      en: "Dashboard that shows system resource usage in real time."
+    },
     tags: ["Python", "Flask", "psutil"],
     url: ""    // enlace a la demo o al repositorio
   },
   {
-    titulo: "Tarjeta digital",
-    descripcion: "Página con una tarjeta descargable y audio incrustado, publicada en Render.",
+    titulo: { es: "Tarjeta digital", en: "Digital card" },
+    descripcion: {
+      es: "Página con una tarjeta descargable y audio incrustado, publicada en Render.",
+      en: "Web page with a downloadable card and embedded audio, deployed on Render."
+    },
     tags: ["Flask", "Render", "JavaScript"],
     url: ""
   }
 ];
+
+/* ===== Idiomas ===== */
+const SEP = "\u00a0".repeat(6);
+const IDIOMAS = ["en", "es"];
+
+const TEXTOS = {
+  en: {
+    titulo: "Fabián | Portfolio",
+    h1: "Fabián's portfolio",
+    marquesina: `welcome to my page :3${SEP}scripts, microservices and web tools${SEP}thanks for visiting`,
+    vHola: "hello.txt",
+    vHabilidades: "skills.txt",
+    vProyectos: "projects",
+    vRedes: "my-links.org",
+    p1: "welcome to my page!! my name is Fabián.",
+    p2: "i build automation scripts, microservices and web tools with python and flask. i'm self-taught, and i also do hardware maintenance and operating system installs.",
+    p3: "my projects and how to reach me are below.",
+    verProyecto: "view project",
+    correo: ">>click here to email me!!",
+    github: ">>click here to see my github!!",
+    sinDatos: "add your email and github in PERFIL (main.js)",
+    botonIdioma: "ES",
+    cambiarIdioma: "Switch to Spanish",
+    navegacion: "Windows"
+  },
+  es: {
+    titulo: "Fabián | Portafolio",
+    h1: "Portafolio de Fabián",
+    marquesina: `bienvenido a mi página :3${SEP}scripts, microservicios y herramientas web${SEP}gracias por visitar`,
+    vHola: "hola.txt",
+    vHabilidades: "habilidades.txt",
+    vProyectos: "proyectos",
+    vRedes: "mis-redes.org",
+    p1: "bienvenido a mi página!! me llamo Fabián.",
+    p2: "hago scripts de automatización, microservicios y herramientas web con python y flask. aprendo por mi cuenta y también hago mantenimiento de hardware e instalación de sistemas operativos.",
+    p3: "más abajo están mis proyectos y cómo contactarme.",
+    verProyecto: "ver proyecto",
+    correo: ">>haz clic para escribirme!!",
+    github: ">>haz clic para ver mi github!!",
+    sinDatos: "agrega tu correo y tu github en PERFIL (main.js)",
+    botonIdioma: "EN",
+    cambiarIdioma: "Cambiar a inglés",
+    navegacion: "Ventanas"
+  }
+};
+
+let idioma = "en";
+const t = clave => TEXTOS[idioma][clave];
+const loc = valor => (typeof valor === "string" ? valor : valor[idioma]);
+
+function idiomaInicial() {
+  try {
+    const guardado = localStorage.getItem("idioma");
+    if (IDIOMAS.includes(guardado)) return guardado;   // valida: solo "en" o "es"
+  } catch {
+    /* almacenamiento bloqueado: seguimos sin guardar */
+  }
+  return navigator.language?.toLowerCase().startsWith("es") ? "es" : "en";
+}
+
+function guardarIdioma() {
+  try {
+    localStorage.setItem("idioma", idioma);
+  } catch {
+    /* almacenamiento bloqueado */
+  }
+}
 
 /* ===== Utilidades ===== */
 function crear(tag, { texto, clase, atributos } = {}, hijos = []) {
@@ -57,14 +131,14 @@ function renderProyectos() {
     renderFichas(tags, proyecto.tags);
 
     const hijos = [
-      crear("h3", { texto: proyecto.titulo }),
-      crear("p", { texto: proyecto.descripcion }),
+      crear("h3", { texto: loc(proyecto.titulo) }),
+      crear("p", { texto: loc(proyecto.descripcion) }),
       tags
     ];
     const url = urlSegura(proyecto.url);
     if (url) {
       hijos.push(crear("a", {
-        texto: "ver proyecto",
+        texto: t("verProyecto"),
         clase: "enlace",
         atributos: { href: url, target: "_blank", rel: "noopener noreferrer" }
       }));
@@ -78,16 +152,41 @@ function renderContacto() {
   const filas = [];
 
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(PERFIL.email)) {
-    filas.push(crear("li", {}, [crear("a", { texto: ">>haz clic para escribirme!!", atributos: { href: `mailto:${PERFIL.email}` } })]));
+    filas.push(crear("li", {}, [crear("a", { texto: t("correo"), atributos: { href: `mailto:${PERFIL.email}` } })]));
   }
   const github = urlSegura(PERFIL.github);
   if (github) {
-    filas.push(crear("li", {}, [crear("a", { texto: ">>haz clic para ver mi github!!", atributos: { href: github, target: "_blank", rel: "noopener noreferrer" } })]));
+    filas.push(crear("li", {}, [crear("a", { texto: t("github"), atributos: { href: github, target: "_blank", rel: "noopener noreferrer" } })]));
   }
   if (filas.length === 0) {
-    filas.push(crear("li", { texto: "agrega tu correo y tu github en PERFIL (main.js)" }));
+    filas.push(crear("li", { texto: t("sinDatos") }));
   }
   lista.replaceChildren(...filas);
+}
+
+/* Aplica el idioma actual a todo: textos fijos, listas y botón */
+function aplicarIdioma() {
+  document.documentElement.lang = idioma;
+  document.title = t("titulo");
+  document.querySelectorAll("[data-i18n]").forEach(nodo => {
+    nodo.textContent = t(nodo.dataset.i18n);
+  });
+  renderProyectos();
+  renderContacto();
+
+  const boton = document.getElementById("idioma");
+  boton.textContent = t("botonIdioma");
+  boton.setAttribute("aria-label", t("cambiarIdioma"));
+  document.getElementById("tareas").setAttribute("aria-label", t("navegacion"));
+}
+
+function iniciarIdioma() {
+  idioma = idiomaInicial();
+  document.getElementById("idioma").addEventListener("click", () => {
+    idioma = idioma === "en" ? "es" : "en";
+    guardarIdioma();
+    aplicarIdioma();
+  });
 }
 
 /* ===== Ventanas estilo escritorio ===== */
@@ -106,10 +205,11 @@ function mover(ventana, x, y) {
 
 function crearBarra(ventana) {
   const botones = crear("div", { clase: "botones" }, [
-    crear("button", { texto: "_", atributos: { type: "button", "data-accion": "minimizar", "aria-label": "Minimizar" } }),
-    crear("button", { texto: "×", atributos: { type: "button", "data-accion": "cerrar", "aria-label": "Cerrar" } })
+    crear("button", { texto: "_", atributos: { type: "button", "data-accion": "minimizar", "aria-label": "–" } }),
+    crear("button", { texto: "×", atributos: { type: "button", "data-accion": "cerrar", "aria-label": "×" } })
   ]);
-  const barra = crear("header", { clase: "barra-v" }, [crear("h2", { texto: ventana.dataset.titulo }), botones]);
+  const titulo = crear("h2", { atributos: { "data-i18n": ventana.dataset.titulo } });
+  const barra = crear("header", { clase: "barra-v" }, [titulo, botones]);
   ventana.prepend(barra);
   return barra;
 }
@@ -144,8 +244,7 @@ function iniciarVentanas() {
     ventana.addEventListener("pointerdown", () => traerAlFrente(ventana));
 
     const tarea = crear("button", {
-      texto: ventana.dataset.titulo,
-      atributos: { type: "button", "aria-pressed": "true" }
+      atributos: { type: "button", "aria-pressed": "true", "data-i18n": ventana.dataset.titulo }
     });
     lista.append(tarea);
 
@@ -172,7 +271,7 @@ function iniciarVentanas() {
 function iniciarReloj() {
   const reloj = document.getElementById("reloj");
   const pintar = () => {
-    reloj.textContent = new Date().toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" });
+    reloj.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
   pintar();
   setInterval(pintar, 30000);
@@ -180,10 +279,10 @@ function iniciarReloj() {
 
 function iniciar() {
   renderFichas(document.getElementById("habilidades"), HABILIDADES);
-  renderProyectos();
-  renderContacto();
+  iniciarIdioma();
   iniciarVentanas();
   iniciarReloj();
+  aplicarIdioma();
 }
 
 iniciar();
