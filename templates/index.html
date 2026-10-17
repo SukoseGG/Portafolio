@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fabián | Portafolio</title>
-<meta name="description" content="Portafolio de desarrollo con Python, Flask y web.">
+<title>Fabián | Portfolio</title>
+<meta name="description" content="Portfolio of a Python, Flask and web developer.">
 <link rel="stylesheet" href="{{ estatico('style.css') }}">
 <script src="{{ estatico('main.js') }}" defer></script>
 </head>
 <body>
-<h1 class="oculto">Portafolio de Fabián</h1>
+<h1 class="oculto" data-i18n="h1">Fabián's portfolio</h1>
 
 <div class="marquesina" aria-hidden="true">
-  <span>bienvenido a mi página :3 &nbsp;&nbsp;&nbsp; scripts, microservicios y herramientas web &nbsp;&nbsp;&nbsp; gracias por visitar</span>
+  <span data-i18n="marquesina">welcome to my page :3 &nbsp;&nbsp;&nbsp; scripts, microservices and web tools &nbsp;&nbsp;&nbsp; thanks for visiting</span>
 </div>
 
 <main class="escritorio">
-  <section class="ventana" data-titulo="hola.txt">
+  <section class="ventana" data-titulo="vHola">
     <div class="contenido">
-      <p>bienvenido a mi página!! me llamo Fabián.</p>
-      <p>hago scripts de automatización, microservicios y herramientas web con python y flask. aprendo por mi cuenta y también hago mantenimiento de hardware e instalación de sistemas operativos.</p>
-      <p>más abajo están mis proyectos y cómo contactarme.</p>
+      <p data-i18n="p1">welcome to my page!! my name is Fabián.</p>
+      <p data-i18n="p2">i build automation scripts, microservices and web tools with python and flask. i'm self-taught, and i also do hardware maintenance and operating system installs.</p>
+      <p data-i18n="p3">my projects and how to reach me are below.</p>
     </div>
   </section>
 
-  <section class="ventana" data-titulo="habilidades.txt">
+  <section class="ventana" data-titulo="vHabilidades">
     <div class="contenido"><ul id="habilidades" class="lista"></ul></div>
   </section>
 
-  <section class="ventana" data-titulo="proyectos">
+  <section class="ventana" data-titulo="vProyectos">
     <div class="contenido" id="proyectos-lista"></div>
   </section>
 
-  <section class="ventana acento" data-titulo="mis-redes.org">
+  <section class="ventana acento" data-titulo="vRedes">
     <div class="contenido negra"><ul id="contacto-lista" class="lista-redes"></ul></div>
   </section>
 </main>
 
-<nav class="tareas" aria-label="Ventanas">
+<nav class="tareas" id="tareas" aria-label="Windows">
   <div id="tareas-lista"></div>
+  <button type="button" id="idioma">ES</button>
   <span id="reloj"></span>
 </nav>
 </body>
-    </html>
+  </html>
