@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fabián | Portafolio</title>
+<meta name="description" content="Portafolio de desarrollo con Python, Flask y web.">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='main.js') }}" defer></script>
+</head>
+<body>
+<a class="saltar" href="#main">Saltar al contenido</a>
+
+<header class="barra">
+  <nav aria-label="Principal">
+    <a class="marca" href="#inicio">Fabián</a>
+    <ul>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#habilidades-seccion">Habilidades</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+  <section id="inicio" class="hero">
+    <h1>Fabián</h1>
+    <p class="lema">Desarrollo scripts de automatización, microservicios y herramientas web con Python y Flask.</p>
+    <div class="acciones">
+      <a class="boton primario" href="#proyectos">Ver proyectos</a>
+      <a class="boton" href="#contacto">Contactar</a>
+    </div>
+  </section>
+
+  <section id="sobre-mi" class="ventana" aria-labelledby="t-sobre">
+    <h2 id="t-sobre">Sobre mí</h2>
+    <div class="cuerpo">
+      <p>Aprendo programación por mi cuenta y construyo herramientas que resuelven tareas concretas: automatización, servicios web y paneles en tiempo real. También hago mantenimiento de hardware e instalación de sistemas operativos.</p>
+    </div>
+  </section>
+
+  <section id="habilidades-seccion" class="ventana" aria-labelledby="t-hab">
+    <h2 id="t-hab">Habilidades</h2>
+    <div class="cuerpo"><ul id="habilidades" class="fichas"></ul></div>
+  </section>
+
+  <section id="proyectos" class="ventana" aria-labelledby="t-proy">
+    <h2 id="t-proy">Proyectos</h2>
+    <div class="cuerpo" id="proyectos-lista"></div>
+  </section>
+
+  <section id="contacto" class="ventana" aria-labelledby="t-cont">
+    <h2 id="t-cont">Contacto</h2>
+    <div class="cuerpo"><ul id="contacto-lista"></ul></div>
+  </section>
+</main>
+
+<footer>© <span id="anio"></span> Fabián</footer>
+</body>
+  </html>
