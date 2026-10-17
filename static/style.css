@@ -1,109 +1,136 @@
 /* ===== Tokens ===== */
 :root {
-  --carbon: #1b1d21;
-  --panel: #24272c;
-  --borde: #3a3f47;
-  --cian: #9eeaff;
-  --texto: #e8eff3;
-  --apagado: #8b98a3;
-  --cromo: linear-gradient(180deg, #e9f1f5 0%, #9aa8b1 100%);
+  --acento: #9eeaff;            /* para el rojo del ejemplo usa #e0161b */
+  --gris: #c0c0c0;
+  --relieve: #fff #404040 #404040 #fff;
+  --hundido: #404040 #fff #fff #404040;
   color-scheme: dark;
 }
 
 /* ===== Base ===== */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: Verdana, Tahoma, "DejaVu Sans", sans-serif;
-  line-height: 1.65;
-  color: var(--texto);
-  background-color: var(--carbon);
-  background-image:
-    linear-gradient(rgba(158, 234, 255, .05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(158, 234, 255, .05) 1px, transparent 1px);
-  background-size: 32px 32px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Courier New", ui-monospace, monospace;
+  line-height: 1.5;
+  color: #fff;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, .28) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at 15% 10%, rgba(158, 234, 255, .22), transparent 55%),
+    radial-gradient(ellipse at 85% 75%, rgba(158, 234, 255, .14), transparent 50%),
+    #0d0f12;
+  background-attachment: fixed;
+  /* tu propia imagen: url("/static/fondo.jpg") center / cover fixed */
 }
-a { color: var(--cian); }
-:focus-visible { outline: 2px solid var(--cian); outline-offset: 3px; }
-main, .barra nav, footer { width: min(100% - 2rem, 52rem); margin-inline: auto; }
+:focus-visible { outline: 2px dashed #ff0; outline-offset: 2px; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.saltar { position: absolute; left: -999px; }
-.saltar:focus { left: 1rem; top: 1rem; background: var(--carbon); padding: .5rem; z-index: 10; }
-
-/* ===== Barra superior ===== */
-.barra nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1.5rem; padding: 1rem 0; }
-.marca { font-weight: 700; color: var(--texto); text-decoration: none; }
-.barra ul { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: 0; padding: 0; list-style: none; }
-.barra ul a { color: var(--apagado); text-decoration: none; font-size: .9rem; }
-.barra ul a:hover { color: var(--cian); }
-
-/* ===== Hero ===== */
-.hero { padding: clamp(3rem, 12vw, 7rem) 0 clamp(2.5rem, 8vw, 4.5rem); }
-.hero h1 {
-  margin: 0;
-  font-size: clamp(3rem, 15vw, 6.5rem);
-  line-height: 1;
-  letter-spacing: -.03em;
-  background: linear-gradient(180deg, #fff 0%, #c4d3da 45%, #6f7d87 55%, #d6e4ea 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 18px rgba(158, 234, 255, .35));
-  animation: escanear .9s steps(12) both;
+/* ===== Marquesina ===== */
+.marquesina {
+  margin: 1rem 1rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: #000;
+  color: var(--acento);
+  border: 2px solid var(--acento);
 }
-.lema { max-width: 34rem; margin: 1.25rem 0 1.75rem; color: var(--apagado); animation: escanear .9s .5s steps(12) both; }
-.acciones { display: flex; flex-wrap: wrap; gap: .75rem; }
-.boton {
-  padding: .65rem 1.25rem;
-  border: 1px solid var(--cian);
-  color: var(--cian);
-  text-decoration: none;
-  font-weight: 700;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
-}
-.boton:hover { background: rgba(158, 234, 255, .12); }
-.boton.primario { background: var(--cian); color: var(--carbon); }
-.boton.primario:hover { background: #c4f2ff; }
-@keyframes escanear { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.marquesina span { display: inline-block; padding-left: 100%; animation: correr 22s linear infinite; }
+@keyframes correr { to { transform: translateX(-100%); } }
 
-/* ===== Ventanas (cada sección) ===== */
+/* ===== Escritorio y ventanas ===== */
+.escritorio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 6rem;
+}
+.ventana:nth-child(odd) { margin-right: 2.5rem; }
+.ventana:nth-child(even) { margin-left: 2.5rem; }
 .ventana {
-  margin-bottom: 1.75rem;
-  background: var(--panel);
-  border: 1px solid var(--borde);
-  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
-  scroll-margin-top: 1rem;
+  position: relative;
+  background: var(--gris);
+  color: #000;
+  border: 2px solid;
+  border-color: var(--relieve);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, .65);
 }
-.ventana > h2 {
-  display: flex; align-items: center; justify-content: space-between;
-  margin: 0; padding: .45rem .9rem;
-  font-size: .9rem; color: var(--carbon); background: var(--cromo);
+.ventana[hidden] { display: none; }
+.ventana.min .contenido { display: none; }
+
+.barra-v {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .2rem .3rem;
+  background: #000;
+  color: #fff;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
 }
-.ventana > h2::after {
-  content: ""; width: 9px; height: 9px; margin-right: 34px;
-  background: var(--carbon);
-  box-shadow: 15px 0 var(--carbon), 30px 0 var(--carbon);
+.ventana.acento .barra-v { background: var(--acento); color: #000; }
+.barra-v h2 { margin: 0; font-size: 1rem; }
+.botones { display: flex; gap: .25rem; }
+.botones button, .tareas button {
+  font: inherit;
+  color: #000;
+  background: var(--gris);
+  border: 2px solid;
+  border-color: var(--relieve);
+  cursor: pointer;
 }
-.cuerpo { padding: 1.25rem 1rem 1.5rem; }
-.cuerpo > p { max-width: 60ch; margin: 0; }
+.botones button { width: 1.75rem; height: 1.75rem; padding: 0; line-height: 1; }
 
-/* ===== Fichas (habilidades y tags) ===== */
-.fichas { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
-.fichas li { padding: .25rem .7rem; font-size: .85rem; background: var(--carbon); border: 1px solid var(--borde); }
+.contenido {
+  margin: .35rem;
+  padding: .75rem;
+  background: #fff;
+  border: 2px solid;
+  border-color: var(--hundido);
+}
+.contenido p { margin: 0 0 .75rem; }
+.contenido p:last-child { margin: 0; }
+.contenido.negra { background: #000; color: var(--acento); }
 
-/* ===== Proyectos ===== */
-.proyecto { padding: 1.25rem 0 1.25rem 1rem; border-left: 3px solid var(--cian); margin-bottom: 1rem; }
-.proyecto:last-child { margin-bottom: 0; }
-.proyecto h3 { margin: 0 0 .35rem; font-size: 1.1rem; }
-.proyecto p { max-width: 60ch; margin: 0 0 .85rem; color: var(--apagado); }
-.proyecto .enlace { display: inline-block; margin-top: .85rem; }
+/* ===== Listas ===== */
+.lista, .lista-redes, .fichas { margin: 0; padding: 0; list-style: none; }
+.lista li::before { content: "> "; }
+.fichas { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .5rem; }
+.fichas li::before { content: "["; }
+.fichas li::after { content: "]"; }
+.proyecto { padding-bottom: .9rem; margin-bottom: .9rem; border-bottom: 1px dashed #000; }
+.proyecto:last-child { margin-bottom: 0; padding-bottom: 0; border: 0; }
+.proyecto h3 { margin: 0 0 .25rem; font-size: 1rem; text-decoration: underline; }
+.proyecto p { margin: 0 0 .5rem; }
+.proyecto .enlace { color: #00e; }
 
-/* ===== Contacto y pie ===== */
-#contacto-lista { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
-footer { padding: 1.5rem 0 3rem; color: var(--apagado); font-size: .85rem; }
+.lista-redes li + li { margin-top: .6rem; }
+.lista-redes a { color: var(--acento); font-weight: 700; animation: parpadeo 1.6s steps(1) infinite; }
+.lista-redes a:hover { animation: none; }
+@keyframes parpadeo { 50% { opacity: .3; } }
+
+/* ===== Barra de tareas ===== */
+.tareas {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .5rem calc(.35rem + env(safe-area-inset-bottom, 0px));
+  background: var(--gris);
+  border-top: 2px solid #fff;
+}
+#tareas-lista { display: flex; flex: 1; gap: .35rem; overflow-x: auto; }
+.tareas button { padding: .3rem .6rem; font-size: .8rem; white-space: nowrap; }
+.tareas button[aria-pressed="true"] { border-color: var(--hundido); font-weight: 700; background: #d8d8d8; }
+#reloj { padding: .2rem .5rem; font-size: .8rem; color: #000; border: 2px solid; border-color: var(--hundido); }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .hero h1, .lema { animation: none; }
-}
+  .marquesina span { animation: none; padding-left: 0; }
+  .lista-redes a { animation: none; }
+                   }
