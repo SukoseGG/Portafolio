@@ -2,60 +2,44 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fabián | Portafolio</title>
 <meta name="description" content="Portafolio de desarrollo con Python, Flask y web.">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <script src="{{ url_for('static', filename='main.js') }}" defer></script>
 </head>
 <body>
-<a class="saltar" href="#main">Saltar al contenido</a>
+<h1 class="oculto">Portafolio de Fabián</h1>
 
-<header class="barra">
-  <nav aria-label="Principal">
-    <a class="marca" href="#inicio">Fabián</a>
-    <ul>
-      <li><a href="#sobre-mi">Sobre mí</a></li>
-      <li><a href="#habilidades-seccion">Habilidades</a></li>
-      <li><a href="#proyectos">Proyectos</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
-</header>
+<div class="marquesina" aria-hidden="true">
+  <span>bienvenido a mi página :3 &nbsp;&nbsp;&nbsp; scripts, microservicios y herramientas web &nbsp;&nbsp;&nbsp; gracias por visitar</span>
+</div>
 
-<main id="main">
-  <section id="inicio" class="hero">
-    <h1>Fabián</h1>
-    <p class="lema">Desarrollo scripts de automatización, microservicios y herramientas web con Python y Flask.</p>
-    <div class="acciones">
-      <a class="boton primario" href="#proyectos">Ver proyectos</a>
-      <a class="boton" href="#contacto">Contactar</a>
+<main class="escritorio">
+  <section class="ventana" data-titulo="hola.txt">
+    <div class="contenido">
+      <p>bienvenido a mi página!! me llamo Fabián.</p>
+      <p>hago scripts de automatización, microservicios y herramientas web con python y flask. aprendo por mi cuenta y también hago mantenimiento de hardware e instalación de sistemas operativos.</p>
+      <p>más abajo están mis proyectos y cómo contactarme.</p>
     </div>
   </section>
 
-  <section id="sobre-mi" class="ventana" aria-labelledby="t-sobre">
-    <h2 id="t-sobre">Sobre mí</h2>
-    <div class="cuerpo">
-      <p>Aprendo programación por mi cuenta y construyo herramientas que resuelven tareas concretas: automatización, servicios web y paneles en tiempo real. También hago mantenimiento de hardware e instalación de sistemas operativos.</p>
-    </div>
+  <section class="ventana" data-titulo="habilidades.txt">
+    <div class="contenido"><ul id="habilidades" class="lista"></ul></div>
   </section>
 
-  <section id="habilidades-seccion" class="ventana" aria-labelledby="t-hab">
-    <h2 id="t-hab">Habilidades</h2>
-    <div class="cuerpo"><ul id="habilidades" class="fichas"></ul></div>
+  <section class="ventana" data-titulo="proyectos">
+    <div class="contenido" id="proyectos-lista"></div>
   </section>
 
-  <section id="proyectos" class="ventana" aria-labelledby="t-proy">
-    <h2 id="t-proy">Proyectos</h2>
-    <div class="cuerpo" id="proyectos-lista"></div>
-  </section>
-
-  <section id="contacto" class="ventana" aria-labelledby="t-cont">
-    <h2 id="t-cont">Contacto</h2>
-    <div class="cuerpo"><ul id="contacto-lista"></ul></div>
+  <section class="ventana acento" data-titulo="mis-redes.org">
+    <div class="contenido negra"><ul id="contacto-lista" class="lista-redes"></ul></div>
   </section>
 </main>
 
-<footer>© <span id="anio"></span> Fabián</footer>
+<nav class="tareas" aria-label="Ventanas">
+  <div id="tareas-lista"></div>
+  <span id="reloj"></span>
+</nav>
 </body>
-  </html>
+    </html>
