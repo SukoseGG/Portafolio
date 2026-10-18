@@ -3,6 +3,16 @@
 /* ===== Textos nuevos (main.js los mezcla con TEXTOS) ===== */
 const TEXTOS_EXTRA = {
   en: {
+        vMensaje: "message.exe",
+    mensajeNombre: "name",
+    mensajeCorreo: "email",
+    mensajeTexto: "message",
+    mensajeEnviar: "send",
+    mensajeEnviando: "sending...",
+    mensajeOk: "message sent, thanks!",
+    mensajeInvalido: "check the fields and try again",
+    mensajeLimite: "too many messages right now, try again later",
+    mensajeError: "could not send, try again later",
     vYo: "me.txt",
     vTerminal: "terminal.exe",
     terminalBienvenida: "type help to see the commands",
@@ -10,6 +20,16 @@ const TEXTOS_EXTRA = {
     terminalDesconocido: "command not found: "
   },
   es: {
+        vMensaje: "mensaje.exe",
+    mensajeNombre: "nombre",
+    mensajeCorreo: "correo",
+    mensajeTexto: "mensaje",
+    mensajeEnviar: "enviar",
+    mensajeEnviando: "enviando...",
+    mensajeOk: "mensaje enviado, gracias!",
+    mensajeInvalido: "revisa los campos e inténtalo de nuevo",
+    mensajeLimite: "demasiados mensajes por ahora, prueba más tarde",
+    mensajeError: "no se pudo enviar, inténtalo más tarde",
     vYo: "yo.txt",
     vTerminal: "terminal.exe",
     terminalBienvenida: "escribe help para ver los comandos",
@@ -106,6 +126,38 @@ async function iniciarArranque() {
   if (!cerrada) cerrar();
 }
 
+/* ===== message.exe: formulario de contacto ===== */
+const ERRORES_CONTACTO = { 400: "mensajeInvalido", 429: "mensajeLimite" };
+
+function iniciarFormulario() {
+  const formulario = document.getElementById("contacto-form");
+  const boton = document.getElementById("cf-enviar");
+  const estado = document.getElementById("cf-estado");
+
+  formulario.addEventListener("submit", async evento => {
+    evento.preventDefault();
+    boton.disabled = true;
+    estado.textContent = t("mensajeEnviando");
+    try {
+      const respuesta = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(formulario)))
+      });
+      if (respuesta.ok) {
+        formulario.reset();
+        estado.textContent = t("mensajeOk");
+      } else {
+        estado.textContent = t(ERRORES_CONTACTO[respuesta.status] ?? "mensajeError");
+      }
+    } catch {
+      estado.textContent = t("mensajeError");
+    } finally {
+      boton.disabled = false;
+    }
+  });
+}
+
 /* ===== Punto de entrada: lo llama main.js ===== */
 function iniciarExtras() {
   alCambiarIdioma.push(() => {
@@ -114,4 +166,5 @@ function iniciarExtras() {
   });
   iniciarTerminal();
   iniciarArranque();
+  iniciarFormulario();
 }

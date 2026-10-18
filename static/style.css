@@ -214,3 +214,28 @@ body::after {
 .terminal-linea { display: flex; gap: .5rem; }
 .terminal-linea:focus-within { outline: 1px dashed var(--lima); }
 .terminal input { flex: 1; min-width: 0; padding: 0; color: var(--acento); font: inherit; background: transparent; border: 0; outline: 0; }
+/* ===== message.exe ===== */
+.formulario { display: grid; gap: .5rem; }
+.formulario input:not(.trampa), .formulario textarea {
+  width: 100%;
+  padding: .4rem .5rem;
+  color: var(--acento);
+  font: inherit;
+  background: #000;
+  border: 2px solid;
+  border-color: var(--hundido);
+}
+.formulario textarea { resize: vertical; }
+.formulario button {
+  justify-self: start;
+  padding: .4rem 1rem;
+  color: var(--menta);
+  font: inherit;
+  background: var(--panel);
+  border: 2px solid;
+  border-color: var(--relieve);
+  cursor: pointer;
+}
+.formulario button:disabled { opacity: .5; cursor: wait; }
+.trampa { position: absolute; left: -9999px; }
+#cf-estado { min-height: 1.5em; margin: 0; color: var(--lima); }

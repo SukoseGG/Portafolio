@@ -53,11 +53,27 @@
       </label>
     </div>
   </section>
-  
+
   <section class="ventana" data-titulo="vAhora">
     <div class="contenido"><ul id="ahora-lista" class="lista"></ul></div>
   </section>
 
+    <section class="ventana" data-titulo="vMensaje">
+    <div class="contenido">
+      <form id="contacto-form" class="formulario">
+        <label for="cf-nombre" data-i18n="mensajeNombre"></label>
+        <input id="cf-nombre" name="nombre" type="text" maxlength="80" autocomplete="name" required>
+        <label for="cf-correo" data-i18n="mensajeCorreo"></label>
+        <input id="cf-correo" name="correo" type="email" maxlength="120" autocomplete="email" required>
+        <label for="cf-mensaje" data-i18n="mensajeTexto"></label>
+        <textarea id="cf-mensaje" name="mensaje" rows="5" maxlength="2000" required></textarea>
+        <input class="trampa" name="web" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" id="cf-enviar" data-i18n="mensajeEnviar"></button>
+        <p id="cf-estado" role="status"></p>
+      </form>
+    </div>
+  </section>
+  
   <section class="ventana acento" data-titulo="vRedes">
     <div class="contenido negra"><ul id="contacto-lista" class="lista-redes"></ul></div>
   </section>

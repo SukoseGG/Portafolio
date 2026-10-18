@@ -2,10 +2,10 @@
 
 /* ===== Datos: edita solo esta sección ===== */
 const PERFIL = {
-  email: "dmcsukha@gmail.com",
+  email: "",   // el correo ya no se muestra: los mensajes llegan por el formulario
   github: "https://github.com/SukoseGG",
-  instagram: "",   // ej: "https://instagram.com/tu-usuario"
-  twitter: ""      // ej: "https://x.com/tu-usuario"
+  instagram: "https://www.instagram.com/_sukose/",
+  twitter: "https://x.com/Sukose_GG"
 };
 
 const HABILIDADES = [
@@ -23,9 +23,9 @@ const SERVICIOS = [
 ];
 
 const AHORA = [
-  { es: "aprendiendo por mi cuenta, con la meta de estudiar ingeniería de sistemas", en: "learning on my own, aiming to study systems engineering" },
-  { es: "construyendo herramientas de automatización y microservicios web", en: "building automation tools and web microservices" },
-  { es: "buscando proyectos freelance con clientes de todo el mundo", en: "looking for freelance projects with clients worldwide" }
+  { es: "enfocado en scripts de automatización y herramientas web rápidas y eficientes", en: "focused on fast, efficient automation scripts and web tools" },
+  { es: "construyendo microservicios web con Python y Flask", en: "building web microservices with Python and Flask" },
+  { es: "disponible para proyectos freelance con clientes de todo el mundo", en: "available for freelance projects with clients worldwide" }
 ];
 
 const PROYECTOS = [
@@ -65,7 +65,7 @@ const TEXTOS = {
     vAhora: "now.txt",
     vRedes: "my-links.org",
     p1: "welcome to my page!! i'm Sukose.",
-    p2: "i build automation scripts, microservices and web tools with python and flask. i'm self-taught, and i also do hardware maintenance and operating system installs.",
+        p2: "i build automation scripts, microservices and web tools with python and flask. i also handle hardware maintenance and operating system installs.",
     p3: "what i offer, my projects and how to reach me are below.",
     verProyecto: "view project",
     correo: ">>click here to email me!!",
@@ -88,7 +88,7 @@ const TEXTOS = {
     vAhora: "ahora.txt",
     vRedes: "mis-redes.org",
     p1: "bienvenido a mi página!! soy Sukose.",
-    p2: "hago scripts de automatización, microservicios y herramientas web con python y flask. aprendo por mi cuenta y también hago mantenimiento de hardware e instalación de sistemas operativos.",
+        p2: "hago scripts de automatización, microservicios y herramientas web con python y flask. también me encargo del mantenimiento de hardware y la instalación de sistemas operativos.",
     p3: "más abajo están lo que ofrezco, mis proyectos y cómo contactarme.",
     verProyecto: "ver proyecto",
     correo: ">>haz clic para escribirme!!",
