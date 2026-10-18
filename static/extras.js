@@ -63,7 +63,7 @@ function iniciarTerminal() {
     help: () => t("terminalAyuda"),
     about: () => `${t("p1")}\n${t("p2")}`,
     skills: () => HABILIDADES.join(", "),
-    projects: () => PROYECTOS.map(p => `- ${loc(p.titulo)}: ${loc(p.descripcion)}`).join("\n"),
+    projects: () => (PROYECTOS_CACHE || []).map(p => `- ${loc(p.titulo)}: ${loc(p.descripcion)}`).join("\n"),
     contact: () => [PERFIL.email, PERFIL.github, PERFIL.instagram, PERFIL.twitter].filter(Boolean).join("\n"),
     whoami: () => "sukose",
     clear: () => { salida.replaceChildren(); return null; },

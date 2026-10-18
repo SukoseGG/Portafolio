@@ -28,26 +28,9 @@ const AHORA = [
   { es: "disponible para proyectos freelance con clientes de todo el mundo", en: "available for freelance projects with clients worldwide" }
 ];
 
-const PROYECTOS = [
-  {
-    titulo: "System Resource Monitor",
-    descripcion: {
-      es: "Panel que muestra el uso de recursos del sistema en tiempo real.",
-      en: "Dashboard that shows system resource usage in real time."
-    },
-    tags: ["Python", "Flask", "psutil"],
-    url: ""    // enlace a la demo o al repositorio
-  },
-  {
-    titulo: { es: "Tarjeta digital", en: "Digital card" },
-    descripcion: {
-      es: "Página con una tarjeta descargable y audio incrustado, publicada en Render.",
-      en: "Web page with a downloadable card and embedded audio, deployed on Render."
-    },
-    tags: ["Flask", "Render", "JavaScript"],
-    url: ""
-  }
-];
+// PROYECTOS se cargan vía fetch('/api/proyectos') — la única fuente de verdad.
+// (Un texto puede ser un string o { es, en }; lo mismo para SERVICIOS y HABILIDADES)
+let PROYECTOS_CACHE = null;   // populado por cargarProyectos()
 
 /* ===== Idiomas ===== */
 const SEP = "\u00a0".repeat(6);
@@ -155,9 +138,25 @@ function renderTextos(id, items) {
   renderFichas(document.getElementById(id), items.map(loc));
 }
 
-function renderProyectos() {
+/* ===== Carga de proyectos desde la API ===== */
+async function cargarProyectos() {
   const contenedor = document.getElementById("proyectos-lista");
-  contenedor.replaceChildren(...PROYECTOS.map(proyecto => {
+  contenedor.replaceChildren(crear("p", { texto: "cargando..." }));
+  try {
+    const respuesta = await fetch("/api/proyectos");
+    if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
+    PROYECTOS_CACHE = await respuesta.json();
+    renderProyectos();   // re-renderiza con los datos reales
+  } catch (error) {
+    console.error("No se pudieron cargar los proyectos:", error);
+    contenedor.replaceChildren(crear("p", { texto: "no se pudieron cargar los proyectos :(" }));
+  }
+}
+
+function renderProyectos() {
+  const proyectos = PROYECTOS_CACHE ?? [];
+  const contenedor = document.getElementById("proyectos-lista");
+  contenedor.replaceChildren(...proyectos.map(proyecto => {
     const tags = crear("ul", { clase: "fichas" });
     renderFichas(tags, proyecto.tags);
 
@@ -321,6 +320,7 @@ function iniciar() {
   iniciarReloj();
   iniciarExtras();
   aplicarIdioma();
+  cargarProyectos();   // fetch asíncrono: proyectos desde /api/proyectos
 }
 
 iniciar();

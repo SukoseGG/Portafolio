@@ -6,6 +6,9 @@ from collections import deque
 import psutil
 import requests
 from flask import Flask, jsonify, render_template, request, url_for
+from dotenv import load_dotenv
+
+load_dotenv()  # en tu PC lee el archivo .env; en Render las variables ya vienen del entorno
 
 app = Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600     # caché de estáticos: 1 hora
@@ -28,7 +31,7 @@ PROYECTOS = [
             "en": "Dashboard that shows system resource usage in real time.",
         },
         "tags": ["Python", "Flask", "psutil"],
-        "url": "",  # enlace a la demo o al repositorio
+        "url": "",
     },
     {
         "titulo": {"es": "Tarjeta digital", "en": "Digital card"},
@@ -37,7 +40,7 @@ PROYECTOS = [
             "en": "Web page with a downloadable card and embedded audio, deployed on Render.",
         },
         "tags": ["Flask", "Render", "JavaScript"],
-        "url": "",
+        "url": "https://yo-y-ella.onrender.com",
     },
 ]
 
