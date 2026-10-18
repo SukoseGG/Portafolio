@@ -6,8 +6,10 @@
 <title>Sukose | Portfolio</title>
 <meta name="description" content="Portfolio of Sukose, Python, Flask and web developer.">
 <link rel="stylesheet" href="{{ estatico('style.css') }}">
+<link rel="stylesheet" href="{{ estatico('ella.css') }}">
 <script src="{{ estatico('extras.js') }}" defer></script>
 <script src="{{ estatico('main.js') }}" defer></script>
+<script src="{{ estatico('ella.js') }}" defer></script>
 </head>
 <body>
 <div class="marquesina" aria-hidden="true">
@@ -74,6 +76,14 @@
     <div class="contenido negra"><ul id="contacto-lista" class="lista-redes"></ul></div>
   </section>
 </main>
+
+<div id="mundo-ella" class="mundo-ella" role="dialog" aria-modal="true" aria-labelledby="ella-titulo" hidden>
+  <button type="button" id="ella-volver" class="ella-volver">volver ♡</button>
+  <section class="ella">
+    <h2 id="ella-titulo" class="ella-titulo"></h2>
+    <div id="ella-ventanas"></div>
+  </section>
+</div>
 
 <nav class="tareas" id="tareas" aria-label="Windows">
   <div id="tareas-lista"></div>

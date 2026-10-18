@@ -131,6 +131,7 @@ function iniciarTerminal() {
   }
 
   const COMANDOS = {
+        love: () => { if (typeof abrirDialogo === "function") abrirDialogo(); return null; },
     help: () => t("terminalAyuda"),
     ls: () => Object.keys(VENTANAS).filter(botonTarea).join("  "),
     open: ([alias]) => {

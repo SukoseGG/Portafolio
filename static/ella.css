@@ -1,0 +1,107 @@
+/* ===== Portal a su mundo (cutecore) ===== */
+.mundo-ella {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 255, 255, .9), transparent 45%),
+    linear-gradient(90deg, rgba(255, 143, 199, .26) 50%, transparent 50%),
+    linear-gradient(rgba(255, 143, 199, .26) 50%, transparent 50%),
+    #fff0f7;
+  background-size: auto, 48px 48px, 48px 48px, auto;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path .9s ease-in-out;
+}
+.mundo-ella.abierto { clip-path: circle(150% at 50% 50%); }
+
+/* Un solo temblor corto en la página verde (nunca en elementos fijos) */
+html.reiniciando main, html.reiniciando .portada { animation: reinicio .6s steps(6) 1; }
+@keyframes reinicio {
+  0% { transform: none; filter: brightness(1); }
+  25% { transform: translateX(-8px) skewX(-4deg); filter: brightness(1.4); }
+  50% { transform: translateX(7px); }
+  75% { transform: translateX(-3px); filter: brightness(1.2); }
+  100% { transform: none; filter: none; }
+}
+
+.ella-volver, .dialogo-botones button {
+  font: inherit;
+  color: #7a2e55;
+  background: #ffe0ef;
+  border: 2px solid #ff9ccb;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.ella-volver { position: sticky; top: .75rem; z-index: 2; display: block; margin: .75rem 0 0 .75rem; padding: .4rem 1rem; }
+.ella-volver:hover, .dialogo-botones button:hover { background: #ffc9e3; }
+
+.ella {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 6rem;
+  color: #7a2e55;
+  font-family: ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+}
+.ella-titulo {
+  margin: 0 0 2rem;
+  font-size: clamp(2rem, 9vw, 3.2rem);
+  line-height: 1.1;
+  color: #e8408f;
+  text-shadow: 2px 2px 0 #fff, 4px 4px 0 #ffc2de;
+}
+
+.v-rosa {
+  margin-bottom: 2rem;
+  background: #fff7fb;
+  border: 3px solid #ff9ccb;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px #ffc2de, 5px 5px 0 #ffb8d9;
+}
+.v-rosa:nth-child(odd) { margin-right: 2rem; }
+.v-rosa:nth-child(even) { margin-left: 2rem; }
+.v-rosa h3, .dialogo-amor h3 {
+  margin: 0;
+  padding: .45rem 1rem;
+  font-size: 1rem;
+  color: #7a2e55;
+  background: linear-gradient(90deg, #ffa6d2, #ffc9e3);
+  border-radius: 12px 12px 0 0;
+}
+.v-rosa h3::before { content: "♡ "; }
+.v-rosa-cuerpo { padding: 1rem 1.1rem 1.2rem; line-height: 1.6; }
+.v-rosa-cuerpo p { margin: 0 0 .75rem; }
+.v-rosa-cuerpo p:last-child { margin-bottom: 0; }
+.v-rosa-cuerpo .firma { text-align: right; font-weight: bold; color: #e8408f; }
+.contador { font-size: 1.1rem; }
+.contador strong { font-size: 1.6rem; color: #e8408f; }
+
+/* ===== Cuadro "¿esto es amor?" ===== */
+.dialogo-amor {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 30000;
+  width: min(90vw, 22rem);
+  transform: translate(-50%, -50%);
+  background: #fff7fb;
+  color: #7a2e55;
+  font-family: ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  border: 3px solid #ff9ccb;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px #ffc2de, 6px 6px 0 #ffb8d9, 0 0 0 100vmax rgba(60, 10, 40, .55);
+}
+.dialogo-amor h3 { border-radius: 9px 9px 0 0; }
+.dialogo-cuerpo { padding: 1.1rem 1.2rem 1.3rem; text-align: center; }
+.dialogo-texto { margin: 0 0 1rem; font-size: 1.15rem; }
+.dialogo-botones { display: flex; gap: .75rem; justify-content: center; }
+.dialogo-botones button { min-width: 5rem; padding: .45rem 1rem; }
+
+#boton-amor { color: #ff7eb6; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.reiniciando main, html.reiniciando .portada { animation: none; }
+  .mundo-ella { clip-path: none; opacity: 0; transition: opacity .3s; }
+  .mundo-ella.abierto { opacity: 1; }
+}
