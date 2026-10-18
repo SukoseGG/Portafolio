@@ -2,7 +2,7 @@
 
 /* ===== Datos: edita solo esta sección ===== */
 const PERFIL = {
-  email: "",   // el correo ya no se muestra: los mensajes llegan por el formulario
+  email: "",   // el correo no se muestra: los mensajes llegan por el formulario
   github: "https://github.com/SukoseGG",
   instagram: "https://www.instagram.com/_sukose/",
   twitter: "https://x.com/Sukose_GG"
@@ -22,15 +22,7 @@ const SERVICIOS = [
   { es: "mantenimiento de PC e instalación de sistemas operativos", en: "PC maintenance and operating system installs" }
 ];
 
-const AHORA = [
-  { es: "enfocado en scripts de automatización y herramientas web rápidas y eficientes", en: "focused on fast, efficient automation scripts and web tools" },
-  { es: "construyendo microservicios web con Python y Flask", en: "building web microservices with Python and Flask" },
-  { es: "disponible para proyectos freelance con clientes de todo el mundo", en: "available for freelance projects with clients worldwide" }
-];
-
-// PROYECTOS se cargan vía fetch('/api/proyectos') — la única fuente de verdad.
-// (Un texto puede ser un string o { es, en }; lo mismo para SERVICIOS y HABILIDADES)
-let PROYECTOS_CACHE = null;   // populado por cargarProyectos()
+let PROYECTOS_CACHE = null;   // los proyectos viven en app.py y llegan por /api/proyectos
 
 /* ===== Idiomas ===== */
 const SEP = "\u00a0".repeat(6);
@@ -40,16 +32,15 @@ const TEXTOS = {
   en: {
     titulo: "Sukose | Portfolio",
     lema: "automation, microservices and web tools",
-    marquesina: `welcome to my page :3${SEP}scripts, microservices and web tools${SEP}thanks for visiting`,
+    marquesina: `welcome to my page :3${SEP}system online${SEP}thanks for visiting`,
     vHola: "hello.txt",
     vServicios: "services.exe",
     vHabilidades: "skills.txt",
     vProyectos: "projects",
-    vAhora: "now.txt",
     vRedes: "my-links.org",
     p1: "welcome to my page!! i'm Sukose.",
-        p2: "i build automation scripts, microservices and web tools with python and flask. i also handle hardware maintenance and operating system installs.",
-    p3: "what i offer, my projects and how to reach me are below.",
+    p2: "i write clean, modular code that's ready to run, with fast delivery.",
+    p3: "available for freelance projects with clients worldwide.",
     verProyecto: "view project",
     correo: ">>click here to email me!!",
     github: ">>click here to see my github!!",
@@ -63,16 +54,15 @@ const TEXTOS = {
   es: {
     titulo: "Sukose | Portafolio",
     lema: "automatización, microservicios y herramientas web",
-    marquesina: `bienvenido a mi página :3${SEP}scripts, microservicios y herramientas web${SEP}gracias por visitar`,
+    marquesina: `bienvenido a mi página :3${SEP}sistema en línea${SEP}gracias por visitar`,
     vHola: "hola.txt",
     vServicios: "servicios.exe",
     vHabilidades: "habilidades.txt",
     vProyectos: "proyectos",
-    vAhora: "ahora.txt",
     vRedes: "mis-redes.org",
     p1: "bienvenido a mi página!! soy Sukose.",
-        p2: "hago scripts de automatización, microservicios y herramientas web con python y flask. también me encargo del mantenimiento de hardware y la instalación de sistemas operativos.",
-    p3: "más abajo están lo que ofrezco, mis proyectos y cómo contactarme.",
+    p2: "escribo código limpio y modular, listo para ejecutar, con entregas rápidas.",
+    p3: "disponible para proyectos freelance con clientes de todo el mundo.",
     verProyecto: "ver proyecto",
     correo: ">>haz clic para escribirme!!",
     github: ">>haz clic para ver mi github!!",
@@ -138,18 +128,17 @@ function renderTextos(id, items) {
   renderFichas(document.getElementById(id), items.map(loc));
 }
 
-/* ===== Carga de proyectos desde la API ===== */
 async function cargarProyectos() {
   const contenedor = document.getElementById("proyectos-lista");
-  contenedor.replaceChildren(crear("p", { texto: "cargando..." }));
+  contenedor.replaceChildren(crear("p", { texto: t("proyectosCargando") }));
   try {
     const respuesta = await fetch("/api/proyectos");
     if (!respuesta.ok) throw new Error(`HTTP ${respuesta.status}`);
     PROYECTOS_CACHE = await respuesta.json();
-    renderProyectos();   // re-renderiza con los datos reales
+    renderProyectos();
   } catch (error) {
     console.error("No se pudieron cargar los proyectos:", error);
-    contenedor.replaceChildren(crear("p", { texto: "no se pudieron cargar los proyectos :(" }));
+    contenedor.replaceChildren(crear("p", { texto: t("proyectosError") }));
   }
 }
 
@@ -205,15 +194,14 @@ function aplicarIdioma() {
     nodo.textContent = t(nodo.dataset.i18n);
   });
   renderTextos("servicios-lista", SERVICIOS);
-  renderTextos("ahora-lista", AHORA);
   renderProyectos();
   renderContacto();
 
   const boton = document.getElementById("idioma");
   boton.textContent = t("botonIdioma");
   boton.setAttribute("aria-label", t("cambiarIdioma"));
-    alCambiarIdioma.forEach(funcion => funcion());
   document.getElementById("tareas").setAttribute("aria-label", t("navegacion"));
+  alCambiarIdioma.forEach(funcion => funcion());
 }
 
 function iniciarIdioma() {
@@ -320,7 +308,7 @@ function iniciar() {
   iniciarReloj();
   iniciarExtras();
   aplicarIdioma();
-  cargarProyectos();   // fetch asíncrono: proyectos desde /api/proyectos
+  cargarProyectos();
 }
 
 iniciar();
