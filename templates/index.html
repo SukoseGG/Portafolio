@@ -6,6 +6,7 @@
 <title>Sukose | Portfolio</title>
 <meta name="description" content="Portfolio of Sukose, Python, Flask and web developer.">
 <link rel="stylesheet" href="{{ estatico('style.css') }}">
+<script src="{{ estatico('extras.js') }}" defer></script>
 <script src="{{ estatico('main.js') }}" defer></script>
 </head>
 <body>
@@ -39,6 +40,20 @@
     <div class="contenido" id="proyectos-lista"></div>
   </section>
 
+    <section class="ventana" data-titulo="vYo">
+    <div class="contenido"><ul id="yo-lista" class="lista"></ul></div>
+  </section>
+
+  <section class="ventana" data-titulo="vTerminal">
+    <div class="contenido negra terminal">
+      <div id="terminal-salida" role="log" aria-live="polite"></div>
+      <label class="terminal-linea">
+        <span aria-hidden="true">&gt;</span>
+        <input id="terminal-entrada" type="text" maxlength="60" autocomplete="off" autocapitalize="off" spellcheck="false">
+      </label>
+    </div>
+  </section>
+  
   <section class="ventana" data-titulo="vAhora">
     <div class="contenido"><ul id="ahora-lista" class="lista"></ul></div>
   </section>

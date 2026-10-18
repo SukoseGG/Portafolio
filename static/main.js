@@ -102,6 +102,9 @@ const TEXTOS = {
   }
 };
 
+for (const id of IDIOMAS) Object.assign(TEXTOS[id], TEXTOS_EXTRA[id]);   // textos de extras.js
+const alCambiarIdioma = [];                                               // ganchos para extras.js
+
 let idioma = "en";
 const t = clave => TEXTOS[idioma][clave];
 const loc = valor => (typeof valor === "string" ? valor : valor[idioma]);
@@ -210,6 +213,7 @@ function aplicarIdioma() {
   const boton = document.getElementById("idioma");
   boton.textContent = t("botonIdioma");
   boton.setAttribute("aria-label", t("cambiarIdioma"));
+    alCambiarIdioma.forEach(funcion => funcion());
   document.getElementById("tareas").setAttribute("aria-label", t("navegacion"));
 }
 
@@ -315,6 +319,7 @@ function iniciar() {
   iniciarIdioma();
   iniciarVentanas();
   iniciarReloj();
+  iniciarExtras();
   aplicarIdioma();
 }
 

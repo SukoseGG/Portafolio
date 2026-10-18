@@ -191,3 +191,26 @@ body::after {
   96% { transform: translateX(5px); }
 }
 @media (prefers-reduced-motion: reduce) { .portada h1 { animation: none; } }
+/* ===== Pantalla de arranque ===== */
+.arranque {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  align-content: center;
+  padding: 2rem;
+  background: #000;
+  color: var(--acento);
+  text-shadow: 0 0 8px rgba(57, 255, 20, .8);
+  transition: opacity .4s;
+}
+.arranque.fuera { opacity: 0; pointer-events: none; }
+.arranque pre { margin: 0; font: inherit; white-space: pre-wrap; }
+
+/* ===== terminal.exe ===== */
+.terminal { min-height: 11rem; max-height: 18rem; overflow-y: auto; }
+#terminal-salida p { margin: 0 0 .25rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+#terminal-salida .eco { color: var(--lima); }
+.terminal-linea { display: flex; gap: .5rem; }
+.terminal-linea:focus-within { outline: 1px dashed var(--lima); }
+.terminal input { flex: 1; min-width: 0; padding: 0; color: var(--acento); font: inherit; background: transparent; border: 0; outline: 0; }
